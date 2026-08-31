@@ -2,11 +2,13 @@ import { useMemo, useState } from 'react';
 
 import './App.css';
 import { ConnectionStatus } from './components/ConnectionStatus';
+import { DeviceClockEditor } from './components/DeviceClockEditor';
 import { ModuleSelector } from './components/ModuleSelector';
 import { NodeSelector } from './components/NodeSelector';
 import { ScheduleEditor } from './components/ScheduleEditor';
 import { appConfig } from './config/appConfig';
 import { useRelaySchedule } from './hooks/useRelaySchedule';
+import { useDeviceClock } from './hooks/useDeviceClock';
 
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState('kitchen');
@@ -14,6 +16,7 @@ function App() {
   const selectedNode = useMemo(() => appConfig.nodes.find((node) => node.id === selectedNodeId), [selectedNodeId]);
   const selectedModule = selectedNode.modules.find((module) => module.id === selectedModuleId) ?? selectedNode.modules[0];
   const relaySchedule = useRelaySchedule(selectedModule.relayNumber);
+  const deviceClock = useDeviceClock();
 
   const selectNode = (nodeId) => { setSelectedNodeId(nodeId); setSelectedModuleId('relay-1'); };
 
@@ -31,6 +34,7 @@ function App() {
         </aside>
         <ScheduleEditor schedule={relaySchedule.schedule} status={relaySchedule.status} isDirty={relaySchedule.isDirty} onChange={relaySchedule.updateField} onSave={relaySchedule.save} onRefresh={relaySchedule.load} />
       </section>
+      <DeviceClockEditor clock={deviceClock} />
     </main>
   );
 }
