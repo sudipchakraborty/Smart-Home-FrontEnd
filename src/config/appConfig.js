@@ -8,7 +8,7 @@ const modules = [
 export const appConfig = Object.freeze({
   apiBaseUrl: import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:4000/api',
   nodes: [
-    { id: 'kitchen', name: 'Kitchen Node', location: 'Kitchen', connection: 'Modbus ID 1 · COM15', available: true, modules },
+    { id: 'kitchen', name: 'Kitchen Node', location: 'Kitchen', connection: 'Modbus ID 1 · COM9', available: true, modules },
     { id: 'bedroom', name: 'Bedroom Node', location: 'Bedroom', connection: 'Backend mapping required', available: false, modules },
   ],
 });

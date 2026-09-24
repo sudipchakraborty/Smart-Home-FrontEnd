@@ -29,7 +29,7 @@ function App() {
     <main className="app-shell">
       <nav className="app-tabs" aria-label="Application sections"><button type="button" className={activeTab === 'control' ? 'app-tab tab-active' : 'app-tab'} onClick={() => setActiveTab('control')}>Control</button><button type="button" className={activeTab === 'configuration' ? 'app-tab tab-active' : 'app-tab'} onClick={() => setActiveTab('configuration')}>Configuration</button></nav>
       {activeTab === 'configuration' ? <DeviceConfiguration /> : <>
-      <header className="topbar"><div className="brand-mark" aria-hidden="true">S</div><div><strong>Smart Home</strong><span>Node control center</span></div><div className="protocol-pill">Modbus ASCII · COM15</div></header>
+      <header className="topbar"><div className="brand-mark" aria-hidden="true">S</div><div><strong>Smart Home</strong><span>Node control center</span></div><div className="protocol-pill">Modbus ASCII · COM9</div></header>
       <section className="hero-panel"><div><span className="eyebrow">Whole-home control</span><h1>Every room, one calm routine.</h1><p>Select a room node, choose one of its connected modules, and manage that module without mixing device and relay identities.</p></div><div className="device-orbit" aria-hidden="true"><div className="orbit-ring" /><div className="device-core">{selectedNode.name.charAt(0)}</div><span>ROOM NODE</span></div></section>
       <section className="workspace-grid">
         <aside className="device-panel">

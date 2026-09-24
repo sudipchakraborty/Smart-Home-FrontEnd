@@ -66,6 +66,10 @@
 - Added a Stop scan button while scanning.
 - Stopping preserves the realtime device rows already found.
 
+## 2026-09-24 - Updated displayed Modbus port to COM9
+
+- Updated the frontend documentation for the backend Modbus port change from COM15 to COM9.
+
 ## 2026-09-24 - Planned animated Modbus scan
 
 - Replace the status-only scan with a `0..255` slave-ID scan API.
