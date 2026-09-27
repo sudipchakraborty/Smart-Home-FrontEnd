@@ -75,3 +75,20 @@
 - Replace the status-only scan with a `0..255` slave-ID scan API.
 - Show an elegant circular progress indicator with current address and percentage while scanning.
 - Populate the device table only with responding Modbus devices.
+
+## 2026-09-27 - Planned Edge reset command and relay status controls
+
+- Add a visible device reset action backed by the Edge `RESET` command registers `91..95`.
+- Show Relay 1 and Relay 2 state from Edge status registers `96..97`.
+- Add refresh/operation feedback and verify with lint/build; live hardware behavior remains dependent on a connected Edge device.
+
+## 2026-09-27 - Edge reset command and relay status controls implemented
+
+- Added a visible Relay 1/Relay 2 status panel with refresh support.
+- Added a confirmation-protected Reset device action using the backend Edge command API.
+- Validation: frontend lint PASS and production build PASS. Live hardware behavior remains pending a connected Edge device.
+
+## 2026-09-27 - Shared V1/V2 Modbus map confirmed from supplied register deck
+
+- Confirmed frontend schedule controls use the backend API for the supplied shared HH/MM/SS register map.
+- No frontend register changes are required; V2 firmware must match the backend/deck contract.

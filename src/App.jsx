@@ -12,6 +12,8 @@ import { useDeviceClock } from './hooks/useDeviceClock';
 import { useOutputAccess } from './hooks/useOutputAccess';
 import { OutputAccessEditor } from './components/OutputAccessEditor';
 import { DeviceConfiguration } from './components/DeviceConfiguration';
+import { DeviceControlPanel } from './components/DeviceControlPanel';
+import { useDeviceControl } from './hooks/useDeviceControl';
 
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState('kitchen');
@@ -21,6 +23,7 @@ function App() {
   const relaySchedule = useRelaySchedule(selectedModule.relayNumber);
   const deviceClock = useDeviceClock();
   const outputAccess = useOutputAccess();
+  const deviceControl = useDeviceControl();
   const [activeTab, setActiveTab] = useState('control');
 
   const selectNode = (nodeId) => { setSelectedNodeId(nodeId); setSelectedModuleId('relay-1'); };
@@ -43,6 +46,7 @@ function App() {
       </section>
       <DeviceClockEditor clock={deviceClock} />
       <OutputAccessEditor access={outputAccess} />
+      <DeviceControlPanel control={deviceControl} />
       </>}
     </main>
   );
