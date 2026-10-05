@@ -1,8 +1,8 @@
-import { apiRequest } from './apiClient';
+import { deviceApiRequest } from './apiClient';
 
 export const relayScheduleApi = Object.freeze({
-  read: (relayNumber) => apiRequest(`/relays/${relayNumber}/schedule`),
-  update: (relayNumber, schedule) => apiRequest(`/relays/${relayNumber}/schedule`, {
+  read: (relayNumber, unitId) => deviceApiRequest(`/relays/${relayNumber}/schedule`, unitId),
+  update: (relayNumber, schedule, unitId) => deviceApiRequest(`/relays/${relayNumber}/schedule`, unitId, {
     method: 'PUT',
     body: JSON.stringify(schedule),
   }),

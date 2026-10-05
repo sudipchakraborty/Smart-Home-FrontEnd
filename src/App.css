@@ -68,3 +68,6 @@ input[type=time] { grid-column: 1/-1; width: 100%; margin-top: 20px; padding: 14
 @media(max-width:520px){.protocol-pill{display:none}.time-grid,.module-grid,.clock-actions{grid-template-columns:1fr}.device-panel,.schedule-editor,.clock-editor{padding:22px;border-radius:19px}}
 @media(max-width:800px){.output-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.output-editor{padding:22px;border-radius:19px}.output-grid{grid-template-columns:1fr}}
+
+.detail-grid .field-error { color: #ff8c78; }
+.detail-grid input[aria-invalid="true"] { border-color: #ff8c78; }

@@ -1,6 +1,6 @@
-import { apiRequest } from './apiClient';
+import { deviceApiRequest } from './apiClient';
 
 export const outputAccessApi = Object.freeze({
-  read: () => apiRequest('/output-access'),
-  update: (outputName, enabled) => apiRequest(`/output-access/${outputName}`, { method: 'PUT', body: JSON.stringify({ enabled }) }),
+  read: (unitId) => deviceApiRequest('/output-access', unitId),
+  update: (outputName, enabled, unitId) => deviceApiRequest(`/output-access/${outputName}`, unitId, { method: 'PUT', body: JSON.stringify({ enabled }) }),
 });

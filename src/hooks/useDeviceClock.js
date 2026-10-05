@@ -8,7 +8,7 @@ const localDateTime = () => {
   return offsetNow.toISOString().slice(0, 19);
 };
 
-export const useDeviceClock = () => {
+export const useDeviceClock = (unitId) => {
   const [dateTime, setDateTime] = useState(localDateTime);
   const [status, setStatus] = useState('ready');
   const [message, setMessage] = useState('Choose a date and time or use this browser time');
@@ -17,7 +17,7 @@ export const useDeviceClock = () => {
     setStatus('loading');
     setMessage('Reading date and time from device…');
     try {
-      const data = await deviceClockApi.read();
+      const data = await deviceClockApi.read(unitId);
       setDateTime(data.dateTime);
       setStatus('success');
       setMessage('Device date and time loaded');
@@ -25,7 +25,7 @@ export const useDeviceClock = () => {
       setStatus('error');
       setMessage(error.message);
     }
-  }, []);
+  }, [unitId]);
 
   const useBrowserTime = () => {
     setDateTime(localDateTime());
@@ -37,7 +37,7 @@ export const useDeviceClock = () => {
     setStatus('saving');
     setMessage('Writing date and time to device…');
     try {
-      const data = await deviceClockApi.update(dateTime);
+      const data = await deviceClockApi.update(dateTime, unitId);
       setDateTime(data.dateTime);
       setStatus('success');
       setMessage('Device date and time updated and verified');

@@ -28,3 +28,8 @@ export const apiRequest = async (path, options = {}) => {
   }
   return body.data;
 };
+
+export const deviceApiRequest = (path, unitId, options) => {
+  if (!Number.isInteger(unitId) || unitId < 1 || unitId > 247) throw new Error('Select a saved device first');
+  return apiRequest(`${path}${path.includes('?') ? '&' : '?'}unitId=${unitId}`, options);
+};

@@ -1,8 +1,8 @@
-import { apiRequest } from './apiClient';
+import { deviceApiRequest } from './apiClient';
 
 export const deviceClockApi = Object.freeze({
-  read: () => apiRequest('/device-clock'),
-  update: (dateTime) => apiRequest('/device-clock', {
+  read: (unitId) => deviceApiRequest('/device-clock', unitId),
+  update: (dateTime, unitId) => deviceApiRequest('/device-clock', unitId, {
     method: 'PUT',
     body: JSON.stringify({ dateTime }),
   }),

@@ -92,3 +92,39 @@
 
 - Confirmed frontend schedule controls use the backend API for the supplied shared HH/MM/SS register map.
 - No frontend register changes are required; V2 firmware must match the backend/deck contract.
+## 2026-10-05 - Align Modbus connection label
+
+- Plan: update the Kitchen Node connection label to slave ID 2, matching the working ModScan settings and backend configuration.
+- Updated connection label to Modbus ID 2. Validation: frontend lint and production build passed.
+
+## 2026-10-05 - Planned device identity form validation
+
+- Validate Device ID as 1..3 decimal digits, with numeric value 1..247 to match the Edge address contract; send valid IDs padded to three digits.
+- Limit Device Name to 18 characters and reject blank/whitespace-only names.
+- Show field-level errors and block invalid submissions before calling the backend.
+- Verify boundary values, production build, lint, and the rendered form where browser access is available.
+
+### Completed and verified
+
+- Device details now limits the ID input to 3 characters and requires decimal digits with value 1..247; submission pads valid shorter IDs to three digits for the Edge ASCII register contract.
+- Device Name input now has an 18-character limit (previously 19), with blank-name rejection and a visible character counter.
+- Added field-level error messages, invalid-field borders, and an explicit submission guard so invalid data never reaches the update API.
+- Validation: frontend lint and production build passed; direct boundary checks passed for valid IDs, invalid digits/ranges, blank names, 18-character names, and 19-character rejection. git diff --check passed.
+- Rendered browser verification could not run: browser runtime reported no browser available and its connection list was empty. Physical device update was not invoked.
+
+## 2026-10-05 - Planned saved device selection in Control
+
+- Load backend-saved scan results at startup and populate Control from actual devices instead of static room examples.
+- Configuration restores the saved list, refreshes it after scans/identity edits, and indicates when results have been saved.
+- Control selects a saved device and sends its unitId on schedule, date/time, output, relay-status, and reset requests.
+- Reset device-specific UI state on selection; no device controls are shown until a saved device is selected. Empty inventory points to Configuration, and loading errors offer retry.
+- Verify frontend lint/build and selected-device API request construction; record runtime/hardware verification boundaries.
+
+### Completed and verified
+
+- Replaced static Kitchen/Bedroom examples with the backend-saved device inventory. Control loads it at startup and displays actual names and Modbus addresses; empty inventory points to Configuration.
+- Configuration restores saved devices and refreshes both pages after scan/identity edits. Scans save automatically; no duplicate scan can start while results are being saved. Stale scan polls cannot overwrite the finished list.
+- All 8 Control API calls explicitly carry selected unitId. Schedule, date/time, outputs, status and reset therefore operate on the chosen saved device, not the backend default.
+- Device selection resets device-specific state; relay changes reload schedules and ignore older read responses while preserving date/time edits. Inventory load errors show Retry.
+- Verification: clean frontend lint and production build; API construction checks for all 8 selected-address calls; server-rendered dropdown check for actual name/ID; all 35 backend tests passed; git diff --check passed.
+- Live backend is running updated code; frontend returns HTTP 200. Live scan of addresses 1..3 found no responding devices, leaving the initial saved JSON empty. Browser interactive/rendered and physical write verification remain pending. Future successful Configuration scans will populate Control automatically.
